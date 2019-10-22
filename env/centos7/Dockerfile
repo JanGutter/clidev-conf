@@ -20,3 +20,4 @@ COPY console-getty.service.d.override.conf /etc/systemd/system/console-getty.ser
 COPY set_locale.sh /etc/profile.d
 RUN for I in /lib/systemd/system/*.mount; do ln -s /dev/null /etc/systemd/system/$(basename "$I"); done
 RUN ln -s /dev/null /etc/systemd/system/umount.target
+RUN for I in /etc/pam.d/*; do sed -i '/.*-session.*optional.*pam_systemd.so.*/d' $I; done
